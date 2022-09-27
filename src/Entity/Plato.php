@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PlatoRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -36,6 +38,22 @@ class Plato
      * @ORM\Column(type="float")
      */
     private $precio;
+
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurante::class, inversedBy="platos")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $restaurante;
+
+    /**
+     * @ORM\ManyToMany(targetEntity=Alergenos::class)
+     */
+    private $alergenos;
+
+    public function __construct()
+    {
+        $this->alergenos = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -86,6 +104,42 @@ class Plato
     public function setPrecio(float $precio): self
     {
         $this->precio = $precio;
+
+        return $this;
+    }
+
+    public function getRestaurante(): ?Restaurante
+    {
+        return $this->restaurante;
+    }
+
+    public function setRestaurante(?Restaurante $restaurante): self
+    {
+        $this->restaurante = $restaurante;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Alergenos>
+     */
+    public function getAlergenos(): Collection
+    {
+        return $this->alergenos;
+    }
+
+    public function addAlergeno(Alergenos $alergeno): self
+    {
+        if (!$this->alergenos->contains($alergeno)) {
+            $this->alergenos[] = $alergeno;
+        }
+
+        return $this;
+    }
+
+    public function removeAlergeno(Alergenos $alergeno): self
+    {
+        $this->alergenos->removeElement($alergeno);
 
         return $this;
     }

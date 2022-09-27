@@ -32,6 +32,12 @@ class Horario
      */
     private $cierre;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Restaurante::class, inversedBy="horarios")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $restaurante;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +75,18 @@ class Horario
     public function setCierre(\DateTimeInterface $cierre): self
     {
         $this->cierre = $cierre;
+
+        return $this;
+    }
+
+    public function getRestaurante(): ?Restaurante
+    {
+        return $this->restaurante;
+    }
+
+    public function setRestaurante(?Restaurante $restaurante): self
+    {
+        $this->restaurante = $restaurante;
 
         return $this;
     }

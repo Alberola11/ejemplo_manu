@@ -37,6 +37,24 @@ class Direccion
      */
     private $cod_postal;
 
+    /**
+     * @ORM\ManyToOne(targetEntity=Cliente::class, inversedBy="direcciones")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $cliente;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Municipios::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $municipio;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Provincias::class, cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $provincia;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -86,6 +104,42 @@ class Direccion
     public function setCodPostal(int $cod_postal): self
     {
         $this->cod_postal = $cod_postal;
+
+        return $this;
+    }
+
+    public function getCliente(): ?Cliente
+    {
+        return $this->cliente;
+    }
+
+    public function setCliente(?Cliente $cliente): self
+    {
+        $this->cliente = $cliente;
+
+        return $this;
+    }
+
+    public function getMunicipio(): ?Municipios
+    {
+        return $this->municipio;
+    }
+
+    public function setMunicipio(Municipios $municipio): self
+    {
+        $this->municipio = $municipio;
+
+        return $this;
+    }
+
+    public function getProvincia(): ?Provincias
+    {
+        return $this->provincia;
+    }
+
+    public function setProvincia(Provincias $provincia): self
+    {
+        $this->provincia = $provincia;
 
         return $this;
     }

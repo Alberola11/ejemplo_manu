@@ -1,4 +1,4 @@
-App\Entity\Categorias:
+App\Entity\Categoria:
   properties:
     categoria:
       - NotBlank:
@@ -8,3 +8,4 @@ App\Entity\Categorias:
           max: 100
           minMessage: 'Almenos 2 caracteres'
           maxMessage: 'Máximo 100 caracteres'
+      - Type: string

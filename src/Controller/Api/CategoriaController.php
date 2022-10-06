@@ -105,7 +105,7 @@ class CategoriaController extends AbstractFOSRestController
         //4. comprobar que no hay error(siempre tenemos que comprobar el error). Por tanto si no es valido retornamos
         //sin añadir a la base de datos. Tambien se puede hacer alreves como en los apuntes sin la negacion(comprobando a positivo)
         if (!$form->isSubmitted() || !$form->isValid()) {
-            return $form;
+            return $form;//se puede hacer asi o con el Json que hemos puesto en otra funcion
         }
         //5. Si es correcto guardamos en base de datos. El categoriaReposistory es donde estan las funciones de añadir borrar en la base de datos
         $categoria = $form->getData();//esto se puede sustituir quitandole i en add $ cat y return $cat

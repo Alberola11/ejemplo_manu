@@ -1,0 +1,17 @@
+App\Entity\Cliente:
+  properties:
+    nombre:
+      - NotBlank: ~
+    apellidos:
+      - NotBlank: ~
+    telefono:
+      - NotBlank: ~
+      - Regex:
+          pattern: '/^[0-9]+$/i'      #El regex es para decirle que no sea strings, validando que sean numeros
+          match: true
+          message: 'Ha funcionado'
+      - Length:
+          max: 9
+          min: 9
+          minMessage: 'El telefono no puede tener menos de 9 números'
+          maxMessage: 'El telefono no puede tener más de 9 números'

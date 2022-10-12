@@ -4,6 +4,8 @@ namespace App\Repository;
 
 use App\Entity\Restaurante;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -38,6 +40,30 @@ class RestauranteRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+
+    //esta es la queryPersonalizada que hemos creado y utilizaremos en restauranteController
+    public  function findByDayTimeMunicipio($dia, $hora, $idMunicipio)
+    {
+        //creamos la query y le añado un alias--> al objeto que va a devolver->Restaurante
+        return $this->createQueryBuilder('restaurante')
+            ->join('restaurante.horarios', 'horarios')
+            ->join('restaurante.municipio', 'municipio')
+            ->where('municipio.id= :idMunicipio') //los dos puntos delante los detecta como una variable que tendremos que setear para enviar la query
+            ->andWhere('horarios.dia = :dia') // el andwhere es lo que en bases de datos --> and que iria despues del id municipio para añadir más requsitos de busqueda
+            ->andWhere('horarios.apertura <= :hora')
+            ->andWhere('horarios.cierre >= :hora')
+            ->setParameters( new ArrayCollection( // en el setParametros es desde donde seteamos los :Variable de arriba
+                [  // lo importamos de doctrine  esta vez
+                    new Parameter('idMunicipio',$idMunicipio),
+                    new Parameter('dia',$dia),
+                    new Parameter('hora',$hora),
+                ]
+            ))
+            ->orderBy('restaurante.id', 'ASC')
+            ->getQuery()
+            ->getResult();
+    }
+
 
 //    /**
 //     * @return Restaurante[] Returns an array of Restaurante objects

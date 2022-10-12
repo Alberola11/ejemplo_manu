@@ -40,7 +40,7 @@ class ClienteController extends AbstractFOSRestController
         $form->handleRequest($request);
         if (!$form->isSubmitted() || !$form->isValid())
         {
-            return $form->getErrors();
+            return $form;
         }
 
         //Guardamos en base de datos

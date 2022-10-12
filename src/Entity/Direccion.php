@@ -30,7 +30,9 @@ class Direccion
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $puerta_piso_escalera;
+    //como es nulable al crear la dirrecion en el postman no hace falta ponerlo
+    private   $puerta_piso_escalera;
+
 
     /**
      * @ORM\Column(type="integer")
@@ -44,13 +46,13 @@ class Direccion
     private $cliente;
 
     /**
-     * @ORM\OneToOne(targetEntity=Municipios::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Municipios::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $municipio;
 
     /**
-     * @ORM\OneToOne(targetEntity=Provincias::class, cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=Provincias::class)
      * @ORM\JoinColumn(nullable=false)
      */
     private $provincia;
@@ -60,6 +62,7 @@ class Direccion
         return $this->id;
     }
 
+    //los dos puntos y el ? es el retorno. En vez de hacerse  con los /** y el @ return  */ Al final es lo mismo
     public function getCalle(): ?string
     {
         return $this->calle;

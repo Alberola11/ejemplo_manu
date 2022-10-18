@@ -17,5 +17,5 @@ App\Entity\Restaurante:
     categorias:
       groups: [ 'get_restaurante', 'res_filtered' ]
     municipio:
-      groups: [ 'get_restaurante' ]
+      groups: [ ]
 

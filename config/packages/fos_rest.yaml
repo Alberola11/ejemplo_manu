@@ -11,13 +11,13 @@ fos_rest:
     body_listener:
         decoders:
           json: fos_rest.decoder.json
-    exception:
-        enabled: true
-    serializer:
-        serialize_null: true
     format_listener:
         rules:
             - { path: '/api', prefer_extension: false, fallback_format: json, priorities: [ 'json' ] }
             - { path: '^/', stop: true, fallback_format: html }
+    exception:
+        enabled: true
+    serializer:
+        serialize_null: true
 
 

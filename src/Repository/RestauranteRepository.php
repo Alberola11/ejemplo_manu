@@ -48,8 +48,10 @@ class RestauranteRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('restaurante')
             ->join('restaurante.horarios', 'horarios')
             ->join('restaurante.municipio', 'municipio')
-            ->where('municipio.id= :idMunicipio') //los dos puntos delante los detecta como una variable que tendremos que setear para enviar la query
-            ->andWhere('horarios.dia = :dia') // el andwhere es lo que en bases de datos --> and que iria despues del id municipio para añadir más requsitos de busqueda
+            ->where('municipio.id= :idMunicipio') //los dos puntos delante los detecta como una variable que
+            // tendremos que setear para enviar la query
+            ->andWhere('horarios.dia = :dia') // el andwhere es lo que en bases de datos --> and que iria despues del
+            // id municipio para añadir más requsitos de busqueda
             ->andWhere('horarios.apertura <= :hora')
             ->andWhere('horarios.cierre >= :hora')
             ->setParameters( new ArrayCollection( // en el setParametros es desde donde seteamos los :Variable de arriba
